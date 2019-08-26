@@ -57,6 +57,7 @@ export const routes: Routes = [
       {
         path: 'survey',
         loadChildren: () => import('./views/survey/survey.module').then(m => m.SurveyModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'buttons',
