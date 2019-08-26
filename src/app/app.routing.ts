@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuard } from './views/login/guards/auth.guard';
+
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
 
@@ -31,7 +33,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    loadChildren: () => import('./views/login/login.module').then(m => m.LoginModule),
     data: {
       title: 'Login Page'
     }
@@ -57,7 +59,7 @@ export const routes: Routes = [
       {
         path: 'survey',
         loadChildren: () => import('./views/survey/survey.module').then(m => m.SurveyModule),
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
       },
       {
         path: 'buttons',

@@ -21,6 +21,10 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 
+import { LoginService } from './views/login/services/login.service';
+
+import {  LoginModule } from './views/login/login.module';
+
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
@@ -55,21 +59,21 @@ import { HttpClient } from '@angular/common/http';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    LoginModule
   ],
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
-    LoginComponent,
     RegisterComponent
   ],
   providers: [{
-    provide: LocationStrategy,
+    provide: [ LocationStrategy, LoginService],
     useClass: HashLocationStrategy
   },
-  HttpClient],
+    HttpClient],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
