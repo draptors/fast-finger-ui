@@ -1,4 +1,8 @@
-import {Component, ViewChild, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
+import {ServiceService} from '../../service.service';
+import {HttpClient} from '@angular/common/http';
+import {Questions} from '../../survey.model';
+import {map} from 'rxjs/operators';
 
 /**
  * Survey Component
@@ -9,14 +13,22 @@ import {Component, ViewChild, OnInit } from '@angular/core';
 })
 export class SurveyUserComponent implements OnInit {
   private questions: Array<any>[];
-  constructor() {
+  options: any;
+  message = false;
+  constructor(private service: ServiceService, private http: HttpClient) {
   }
   ngOnInit(): void {
-    this.questions = [
-      {
+    this.service.data.subscribe((res) => {
+      console.log('******* USER SURVEY ***', res);
+      this.options = res;
+    });
+  }
 
-      }
-    ];
+  Submit() {
+    this.service.userSubmitSurvery().subscribe(data => {
+      console.log('****** USER SUBMIT SURVEY ********', data);
+      this.message = true;
+    });
   }
 
 }
